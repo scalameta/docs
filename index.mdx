@@ -1,21 +1,23 @@
 ---
 title: "Getting Started"
-description: "Metals v2 is an LSP server for multi-million line Java and Scala codebases"
+description:
+  "Metals v2 is an LSP server for multi-million line Java and Scala codebases"
 ---
 
-<Note>
-  Metals v2 is in active development. Milestone release **2.0.0-M2**.
-</Note>
+<Note>Metals v2 is in active development. Milestone release **2.0.0-M2**.</Note>
 
 ## What is Metals v2?
 
-Metals v1 has an architecture that makes it hard to support large codebases, especially Bazel monorepos. Metals v2 addresses those gaps and adds new Java support.
+Metals v1 has an architecture that makes it hard to support large codebases,
+especially Bazel monorepos. Metals v2 addresses those gaps and adds new Java
+support.
 
 ### What's Different
 
 Metals v1 requires an expensive sync with the build before IDE features work.
 
-Metals v2 loads symbols from source code instead of only the classpath, so more features work out of the box. Build sync is optional and can happen later.
+Metals v2 loads symbols from source code instead of only the classpath, so more
+features work out of the box. Build sync is optional and can happen later.
 
 <CardGroup cols={2}>
   <Card title="Fast" icon="bolt">
@@ -65,11 +67,11 @@ Metals v2 loads symbols from source code instead of only the classpath, so more 
 
 Build integration is optional but required for 3rd-party deps and test/debug.
 
-| Build Tool | Status |
-|------------|--------|
-| Bazel      | Via BSP (see below) |
-| sbt        | ✅ |
-| Mill       | ✅ |
+| Build Tool | Status         |
+| ---------- | -------------- |
+| sbt        | ✅             |
+| Mill       | ✅             |
+| Bazel      | Setup required |
 | Gradle     | Setup required |
 | Maven      | Setup required |
 
@@ -77,12 +79,12 @@ Build integration is optional but required for 3rd-party deps and test/debug.
 
 ## Feature Support
 
-| Feature | Java | Scala |
-|---------|------|-------|
-| Diagnostics | ✅ | ✅ |
-| Go to definition | ✅ | ✅ |
-| Find references | ✅ | Coming soon |
-| Find implementations | ✅ | Coming soon |
+| Feature              | Java | Scala       |
+| -------------------- | ---- | ----------- |
+| Diagnostics          | ✅   | ✅          |
+| Go to definition     | ✅   | ✅          |
+| Find references      | ✅   | Coming soon |
+| Find implementations | ✅   | Coming soon |
 
 ---
 
@@ -90,17 +92,21 @@ Build integration is optional but required for 3rd-party deps and test/debug.
 
 ### Java
 
-Uses **javac** and the **Turbine** header compiler. Indexes multi-million line codebases in seconds with repo-wide navigation.
+Uses **javac** and the **Turbine** header compiler. Indexes multi-million line
+codebases in seconds with repo-wide navigation.
 
 ### Scala
 
-Uses the compiler's `-sourcepath` option to read source files directly, without waiting for the build to produce a classpath. Supports diagnostics and go-to-definition at scale.
+Uses the compiler's `-sourcepath` option to read source files directly, without
+waiting for the build to produce a classpath. Supports diagnostics and
+go-to-definition at scale.
 
 ---
 
 ## 3rd-Party Dependencies
 
-Metals v2 indexes 1st-party sources out of the box. For 3rd-party dependencies, create a `.metals/mbt.json` file:
+Metals v2 indexes 1st-party sources out of the box. For 3rd-party dependencies,
+create a `.metals/mbt.json` file:
 
 ```json
 {
@@ -118,7 +124,8 @@ Reload the window to navigate to external deps.
 
 ### Generated Code
 
-Generated sources (e.g. from Protobuf) require a BSP server. As a workaround, add them as entries in `mbt.json`.
+Generated sources (e.g. from Protobuf) require a BSP server. As a workaround,
+add them as entries in `mbt.json`.
 
 ---
 
@@ -128,7 +135,8 @@ Java support has gaps compared to mature Java IDEs.
 
 ### Java Code Actions
 
-Limited to import suggestions. Refactorings (extract method, inline variable, move class) are not implemented. Scala has broader support.
+Limited to import suggestions. Refactorings (extract method, inline variable,
+move class) are not implemented. Scala has broader support.
 
 ### Gradle & Maven
 
@@ -136,7 +144,8 @@ Build import may require manual steps or running a setup script.
 
 ### Test & Debug
 
-Requires a BSP server that supports DAP. Setup is more involved than other features.
+Requires a BSP server that supports DAP. Setup is more involved than other
+features.
 
 [Report bugs on GitHub](https://github.com/scalameta/metals/issues).
 
@@ -145,7 +154,11 @@ Requires a BSP server that supports DAP. Setup is more involved than other featu
 ## Getting Help
 
 <CardGroup cols={2}>
-  <Card title="GitHub Issues" icon="github" href="https://github.com/scalameta/metals/issues">
+  <Card
+    title="GitHub Issues"
+    icon="github"
+    href="https://github.com/scalameta/metals/issues"
+  >
     Report bugs or request features
   </Card>
   <Card title="Discord" icon="discord" href="https://discord.gg/scalameta">
