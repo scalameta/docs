@@ -1,97 +1,154 @@
 ---
-title: "Introduction"
-description: "Welcome to the new home for your documentation"
+title: "Metals v2"
+description: "LSP server for multi-million line Java and Scala codebases"
 ---
 
-## Setting up
+<Note>
+  Metals v2 is in active development. Milestone release **2.0.0-M2**.
+</Note>
 
-Get your documentation site up and running in minutes.
+## What is Metals v2?
 
-<Card
-  title="Start here"
-  icon="rocket"
-  href="/quickstart"
-  horizontal
->
-  Follow our three step quickstart guide.
-</Card>
+Metals v1 (2019) worked well for small and medium codebases but struggled to scale for large Bazel monorepos. Metals v2 addresses those gaps and adds new Java support.
 
-## Make it yours
+### What's Different
 
-Design a docs site that looks great and empowers your users.
+Metals v1 required an expensive sync with the build before IDE features worked.
 
-<Columns cols={2}>
-  <Card
-    title="Edit locally"
-    icon="pen-to-square"
-    href="/development"
-  >
-    Edit your docs locally and preview them in real time.
+Metals v2 reads source files directly, so most features work out of the box. Build sync is optional and can happen later.
+
+<CardGroup cols={2}>
+  <Card title="Fast" icon="bolt">
+    Indexes multi-million line codebases in seconds.
   </Card>
-  <Card
-    title="Customize your site"
-    icon="palette"
-    href="/essentials/settings"
-  >
-    Customize the design and colors of your site to match your brand.
+  <Card title="Minimal Config" icon="wand-magic-sparkles">
+    Build integration optional, only needed for 3rd-party deps and test/debug.
   </Card>
-    <Card
-    title="Set up navigation"
-    icon="map"
-    href="/essentials/navigation"
-  >
-    Organize your docs to help users find what they need and succeed with your product.
+  <Card title="Java + Scala" icon="code">
+    Both languages in the same workspace.
   </Card>
-  <Card
-    title="API documentation"
-    icon="terminal"
-    href="/api-reference/introduction"
-  >
-    Auto-generate API documentation from OpenAPI specifications.
+  <Card title="Bazel Ready" icon="cubes">
+    Import any symbol in the repo. Run Gazelle to fix BUILD files later.
   </Card>
-</Columns>
+</CardGroup>
 
-## Create beautiful pages
+---
 
-Everything you need to create world-class documentation.
+## Installation
 
-<Columns cols={2}>
-  <Card
-    title="Write with MDX"
-    icon="pen-fancy"
-    href="/essentials/markdown"
-  >
-    Use MDX to style your docs pages.
-  </Card>
-  <Card
-    title="Code samples"
-    icon="code"
-    href="/essentials/code"
-  >
-    Add sample code to demonstrate how to use your product.
-  </Card>
-  <Card
-    title="Images"
-    icon="image"
-    href="/essentials/images"
-  >
-    Display images and other media.
-  </Card>
-  <Card
-    title="Reusable snippets"
-    icon="recycle"
-    href="/essentials/reusable-snippets"
-  >
-    Write once and reuse across your docs.
-  </Card>
-</Columns>
+<Steps>
+  <Step title="Install the Extension">
+    Install **Metals** from the VS Code Marketplace or Open VSX:
+    
+    - [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=scalameta.metals)
+    - [Open VSX](https://open-vsx.org/extension/scalameta/metals)
+  </Step>
+  
+  <Step title="Configure Server Version">
+    Add to your VS Code `settings.json`:
+    
+    ```json
+    {
+      "metals.serverVersion": "2.0.0-M2"
+    }
+    ```
+  </Step>
+  
+  <Step title="Reload">
+    Reload VS Code (`Cmd+Shift+P` → "Reload Window") and open your project.
+  </Step>
+</Steps>
 
-## Need inspiration?
+---
 
-<Card
-  title="See complete examples"
-  icon="stars"
-  href="https://mintlify.com/customers"
->
-  Browse our showcase of exceptional documentation sites.
-</Card>
+## Build Tool Integration
+
+Build integration is optional but required for 3rd-party deps and test/debug.
+
+| Build Tool | Status |
+|------------|--------|
+| Bazel      | Via BSP (see below) |
+| sbt        | ✅ |
+| Mill       | ✅ |
+| Gradle     | Setup required |
+| Maven      | Setup required |
+
+---
+
+## Feature Support
+
+| Feature | Java | Scala |
+|---------|------|-------|
+| Diagnostics | ✅ | ✅ |
+| Go to definition | ✅ | ✅ |
+| Find references | ✅ | Coming soon |
+| Find implementations | ✅ | Coming soon |
+
+---
+
+## Architecture
+
+### Java
+
+Uses **javac** and the **Turbine** header compiler. Indexes multi-million line codebases in seconds with repo-wide navigation.
+
+### Scala
+
+Uses the compiler's `-sourcepath` option to read source files directly, without waiting for the build to produce a classpath. Supports diagnostics and go-to-definition at scale.
+
+---
+
+## 3rd-Party Dependencies
+
+Metals v2 indexes 1st-party sources out of the box. For 3rd-party dependencies, create a `.metals/mbt.json` file:
+
+```json
+{
+  "dependencyModules": [
+    {
+      "id": "com.google.guava:guava:33.5.0-jre",
+      "jar": "/path/to/guava.jar",
+      "sources": "/path/to/guava-sources.jar"
+    }
+  ]
+}
+```
+
+Reload the window to navigate to external deps.
+
+### Generated Code
+
+Generated sources (e.g. from Protobuf) require a BSP server. As a workaround, add them as entries in `mbt.json`.
+
+---
+
+## Known Limitations
+
+Java support has gaps compared to mature Java IDEs.
+
+### Java Code Actions
+
+Limited to import suggestions. Refactorings (extract method, inline variable, move class) are not implemented. Scala has broader support.
+
+### Gradle & Maven
+
+Build import may require manual steps or running a setup script.
+
+### Test & Debug
+
+Requires a BSP server that supports DAP. Setup is more involved than other features.
+
+[Report bugs on GitHub](https://github.com/scalameta/metals/issues).
+
+---
+
+## Getting Help
+
+<CardGroup cols={2}>
+  <Card title="GitHub Issues" icon="github" href="https://github.com/scalameta/metals/issues">
+    Report bugs or request features
+  </Card>
+  <Card title="Discord" icon="discord" href="https://discord.gg/scalameta">
+    Chat with the community
+  </Card>
+</CardGroup>
