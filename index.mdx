@@ -1,6 +1,6 @@
 ---
 title: "Getting Started"
-description: "LSP server for multi-million line Java and Scala codebases"
+description: "Metals v2 is an LSP server for multi-million line Java and Scala codebases"
 ---
 
 <Note>
@@ -9,13 +9,13 @@ description: "LSP server for multi-million line Java and Scala codebases"
 
 ## What is Metals v2?
 
-Metals v1 (2019) worked well for small and medium codebases but struggled to scale for large Bazel monorepos. Metals v2 addresses those gaps and adds new Java support.
+Metals v1 has an architecture that makes it hard to support large codebases, especially Bazel monorepos. Metals v2 addresses those gaps and adds new Java support.
 
 ### What's Different
 
-Metals v1 required an expensive sync with the build before IDE features worked.
+Metals v1 requires an expensive sync with the build before IDE features work.
 
-Metals v2 reads source files directly, so most features work out of the box. Build sync is optional and can happen later.
+Metals v2 loads symbols from source code instead of only the classpath, so more features work out of the box. Build sync is optional and can happen later.
 
 <CardGroup cols={2}>
   <Card title="Fast" icon="bolt">
@@ -49,7 +49,7 @@ Metals v2 reads source files directly, so most features work out of the box. Bui
     
     ```json
     {
-      "metals.serverVersion": "2.0.0-M2"
+      "metals.serverVersion": "2.0.0-M2"" to 
     }
     ```
   </Step>
