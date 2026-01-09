@@ -145,6 +145,32 @@ create a `.metals/mbt.json` file:
 
 Reload the window to navigate to external deps.
 
+### Generating mbt.json for Maven/Gradle
+
+For Maven and Gradle projects, you can generate `mbt.json` automatically using the `extract-mbt.ts` script.
+
+**Install Bun:**
+
+```bash
+curl -fsSL https://bun.sh/install | bash
+```
+
+**Run the script:**
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/scalameta/metals/main-v2/bin/extract-mbt.ts | bun -
+```
+
+The script auto-detects Maven (`pom.xml`) or Gradle (`build.gradle`) and writes `.metals/mbt.json` with all resolved dependencies.
+
+**Options:**
+- `--maven` or `--gradle` to force a specific build tool
+- `--sources` to download source JARs before extraction
+
+<Tip>
+The script is intentionally simple. Download it locally and modify it for your specific build setup—use AI assistants to help debug or extend it.
+</Tip>
+
 ### Generated Code
 
 Generated sources (e.g. from Protobuf) require a BSP server. As a workaround,
