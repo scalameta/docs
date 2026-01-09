@@ -4,7 +4,10 @@ description:
   "Metals v2 is an LSP server for multi-million line Java and Scala codebases"
 ---
 
-<Note>Metals v2 is in active development. Milestone release **2.0.0-M2**.</Note>
+<Note>
+  Metals v2 is in active development. 
+  Latest release: <strong id="metals-version" style={{ cursor: "pointer" }} title="Click to copy">2.0.0-M2</strong>
+</Note>
 
 ## What is Metals v2?
 
@@ -49,11 +52,31 @@ features work out of the box. Build sync is optional and can happen later.
   <Step title="Configure Server Version">
     Add to your VS Code `settings.json`:
     
-    ```json
-    {
-      "metals.serverVersion": "2.0.0-M2"
-    }
-    ```
+    <Tabs>
+      <Tab title="Latest Release">
+        ```json
+        "metals.serverVersion": "2.0.0-M2",
+        ```
+      </Tab>
+      <Tab title="Snapshot">
+        To find the latest snapshot version, visit the [Release workflow runs](https://github.com/scalameta/metals/actions/workflows/release.yml?query=branch%3Amain-v2), 
+        open the latest successful run, expand the **Publish to Sonatype** step, and look for the version in the logs:
+        
+        ```
+        published metals_2.13 to .../metals_2.13/2.0.0-M2-3-fb622b19-SNAPSHOT/...
+        ```
+        
+        Copy the version (e.g. `2.0.0-M2-3-fb622b19-SNAPSHOT`) and add it to your settings:
+        
+        ```json
+        "metals.serverVersion": "2.0.0-M2-3-fb622b19-SNAPSHOT",
+        "metals.customRepositories": [
+          "central",
+          "https://central.sonatype.com/repository/maven-snapshots"
+        ],
+        ```
+      </Tab>
+    </Tabs>
   </Step>
   
   <Step title="Reload">
