@@ -1,39 +1,58 @@
 ---
 title: "Getting Started"
 description:
-  "Metals v2 is an LSP server for multi-million line Java and Scala codebases"
+  "Metals v2 is a language server for multi-million line Java and Scala codebases"
 ---
 
-<Note>
-  Metals v2 is in active development. 
-  Latest release: <strong id="metals-version" style={{ cursor: "pointer" }} title="Click to copy">2.0.0-M2</strong>
-</Note>
+<Tip>
+  Latest release: <strong id="metals-version" style={{ cursor: "pointer" }} title="Click to copy">2.0.0-M2</strong><span id="metals-release-date-wrapper" style={{ display: "none" }}> (released <span id="metals-release-date"></span>)</span>
+</Tip>
 
-## What is Metals v2?
+## The Problem
 
-Metals v1 has an architecture that makes it hard to support large codebases,
-especially Bazel monorepos. Metals v2 addresses those gaps and adds new Java
-support.
+Traditional Java and Scala IDEs depend on syncing with your build tool to understand the
+project structure. This sync is a blocking operation—often taking minutes on
+large codebases—and it's brittle: when it fails or gets stuck, your IDE is
+useless until you fix it.
 
-### What's Different
+This was tolerable when all code editing was done manually by developers. It's not
+tolerable when an AI agent can implement a feature faster than your IDE can
+finish syncing. The JVM is an incredibly powerful platform, but its tooling
+hasn't kept pace with how code is written today: remote environments, fast
+iteration cycles, and codebases measured in millions of lines.
 
-Metals v1 requires an expensive sync with the build before IDE features work.
+## The Approach
 
-Metals v2 loads symbols from source code instead of only the classpath, so more
-features work out of the box. Build sync is optional and can happen later.
+Metals v2 indexes source files directly, bypassing the build for core navigation.
+Open a 10-million-line folder and get working go-to-definition in under 20
+seconds—no build server required, no need for the code to compile first.
+
+- **Cold start**: ~1 million lines per second
+- **After initial index**: Navigation is instant
+
+For Java, Metals v2 uses [Turbine](https://github.com/google/turbine), Google's
+header compiler, to extract type information without full compilation. For
+Scala, it leverages the compiler's `-sourcepath` option to resolve symbols
+directly from source. More architectural details will be shared in the future.
+
+Metals v2 is developed in [scalameta/metals](https://github.com/scalameta/metals),
+the same repository as [Metals v1](https://scalameta.org/metals), the official
+Scala language server. While v1 remains the stable choice for smaller projects,
+v2 is purpose-built for large codebases where build-dependent tooling becomes a
+bottleneck.
 
 <CardGroup cols={2}>
   <Card title="Fast" icon="bolt">
-    Indexes multi-million line codebases in seconds.
+    Indexes ~1M lines/second. Usable in 10-20s even on massive codebases.
   </Card>
-  <Card title="Minimal Config" icon="wand-magic-sparkles">
-    Build integration optional, only needed for 3rd-party deps and test/debug.
+  <Card title="Build-Independent" icon="wand-magic-sparkles">
+    Navigation works immediately. Build integration optional for high-fidelity analysis and testing/debugging.
   </Card>
-  <Card title="Real-time Errors" icon="clock">
-    Errors appear as you type instead of only after you save the file.
+  <Card title="Real-time Diagnostics" icon="clock">
+    Errors appear as you type, not after you save and wait for compilation.
   </Card>
-  <Card title="Bazel Ready" icon="cubes">
-    Import any symbol in the repo. Run Gazelle to fix BUILD files later.
+  <Card title="Bazel Friendly" icon="cubes">
+    Import any symbol in the repo. Run Gazelle later to update your BUILD files.
   </Card>
 </CardGroup>
 
@@ -111,19 +130,6 @@ Build integration is optional but required for 3rd-party deps and test/debug.
 
 ---
 
-## Architecture
-
-### Java
-
-Uses **javac** and the **Turbine** header compiler. Indexes multi-million line
-codebases in seconds with repo-wide navigation.
-
-### Scala
-
-Uses the compiler's `-sourcepath` option to read source files directly, without
-waiting for the build to produce a classpath. Supports diagnostics and
-go-to-definition at scale.
-
 ---
 
 ## 3rd-Party Dependencies
@@ -187,16 +193,11 @@ Java support has gaps compared to mature Java IDEs.
 Limited to import suggestions. Refactorings (extract method, inline variable,
 move class) are not implemented. Scala has broader support.
 
-### Gradle & Maven
-
-Build import may require manual steps or running a setup script.
-
 ### Test & Debug
 
 Requires a BSP server that supports DAP. Setup is more involved than other
 features.
 
-[Report bugs on GitHub](https://github.com/scalameta/metals/issues).
 
 ---
 
