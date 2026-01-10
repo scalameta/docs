@@ -23,16 +23,17 @@ iteration cycles, and codebases measured in millions of lines.
 
 ## The Approach
 
-Metals v2 indexes source files directly, bypassing the build for core navigation.
-Open a 10-million-line folder and get working go-to-definition in under 20
-seconds—no build server required, no need for the code to compile first.
+Metals v2 indexes source files directly, bypassing the build for core
+navigation.  Open a 10-million-line folder and get working
+find-implementations in under 20 seconds — no build server required,
+no need for the code to compile first.
 
 - **Cold start**: ~1 million lines per second
 - **After initial index**: Navigation is instant
 
 For Java, Metals v2 uses [Turbine](https://github.com/google/turbine), Google's
 header compiler, to extract type information without full compilation. For
-Scala, it leverages the compiler's `-sourcepath` option to resolve symbols
+Scala, it leverages the compiler's `-sourcepath` option to resolve symbols efficiently
 directly from source. More architectural details will be shared in the future.
 
 Metals v2 is developed in [scalameta/metals](https://github.com/scalameta/metals),
