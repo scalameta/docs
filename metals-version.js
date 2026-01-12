@@ -10,7 +10,8 @@
       const response = await fetch("https://img.shields.io/maven-central/v/org.scalameta/metals_2.13.json");
       const data = await response.json();
       if (data.value && data.value !== "unknown") {
-        return data.value;
+        // Strip 'v' prefix - that's just the Git tag name, not the artifact version
+        return data.value.replace(/^v/, '');
       }
     } catch (e) {
       console.warn("Failed to fetch Metals version:", e);

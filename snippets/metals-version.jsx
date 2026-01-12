@@ -8,7 +8,8 @@ export const MetalsVersion = ({ fallback = "2.0.0-M2" }) => {
       .then((res) => res.json())
       .then((data) => {
         if (data.value && data.value !== "unknown") {
-          setVersion(data.value);
+          // Strip 'v' prefix - that's just the Git tag name, not the artifact version
+          setVersion(data.value.replace(/^v/, ''));
         }
       })
       .catch(() => {
@@ -50,7 +51,8 @@ export const MetalsVersionBlock = ({ fallback = "2.0.0-M2" }) => {
       .then((res) => res.json())
       .then((data) => {
         if (data.value && data.value !== "unknown") {
-          setVersion(data.value);
+          // Strip 'v' prefix - that's just the Git tag name, not the artifact version
+          setVersion(data.value.replace(/^v/, ''));
         }
       })
       .catch(() => {
