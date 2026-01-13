@@ -107,15 +107,6 @@
       dateWrapper.style.display = "inline";
     }
 
-    // Update code blocks containing metals.serverVersion
-    document.querySelectorAll("pre code").forEach((codeEl) => {
-      if (codeEl.textContent.includes("metals.serverVersion")) {
-        codeEl.textContent = codeEl.textContent.replace(
-          /"metals\.serverVersion":\s*"[^"]+"/,
-          `"metals.serverVersion": "${currentVersion}"`
-        );
-      }
-    });
   }
 
   // Run when DOM is ready and also observe for SPA navigation

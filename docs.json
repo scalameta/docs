@@ -15,7 +15,7 @@
         "groups": [
           {
             "group": "",
-            "pages": ["index"]
+            "pages": ["index", "cursor", "vscode", "neovim"]
           }
         ]
       }
@@ -24,13 +24,18 @@
       "anchors": [
         {
           "anchor": "Install for Cursor",
-          "href": "cursor:extension/scalameta.metals",
+          "href": "/cursor",
           "icon": "/images/cursor-light.svg"
         },
         {
           "anchor": "Install for VS Code",
-          "href": "vscode:extension/scalameta.metals",
+          "href": "/vscode",
           "icon": "/images/vscode.svg"
+        },
+        {
+          "anchor": "Install for Neovim",
+          "href": "/neovim",
+          "icon": "/images/neovim.svg"
         }
       ]
     }

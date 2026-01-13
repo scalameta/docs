@@ -1,0 +1,35 @@
+---
+title: "Cursor"
+description: "Install Metals v2 in Cursor"
+---
+
+Metals v2 works in Cursor through the VS Code Metals extension.
+
+## Installation
+
+<Steps>
+  <Step title="Install the Extension">
+    [Install Metals for Cursor](cursor:extension/scalameta.metals) ([Open VSX](https://open-vsx.org/extension/scalameta/metals))
+  </Step>
+  
+  <Step title="Configure Server Version">
+    Add to your settings JSON:
+    - **Workspace**: `.vscode/settings.json` in your project
+    - **User**: `Cmd+Shift+P` → "Preferences: Open User Settings (JSON)"
+    
+    <Tip>
+      Latest version: <strong id="metals-version" style={{ cursor: "pointer" }} title="Click to copy">2.0.0-M2</strong>
+    </Tip>
+    
+    ```json
+    {
+      "metals.serverVersion": "2.0.0-M2",
+      "metals.serverProperties": ["-Xmx4g"]
+    }
+    ```
+  </Step>
+  
+  <Step title="Reload">
+    Reload Cursor (`Cmd+Shift+P` → "Reload Window"), let indexing complete and start navigating.
+  </Step>
+</Steps>

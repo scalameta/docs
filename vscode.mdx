@@ -1,0 +1,35 @@
+---
+title: "VS Code"
+description: "Install Metals v2 in VS Code"
+---
+
+Metals v2 works in VS Code through the official Metals extension.
+
+## Installation
+
+<Steps>
+  <Step title="Install the Extension">
+    [Install Metals for VS Code](vscode:extension/scalameta.metals) ([Marketplace](https://marketplace.visualstudio.com/items?itemName=scalameta.metals))
+  </Step>
+  
+  <Step title="Configure Server Version">
+    Add to your settings JSON:
+    - **Workspace**: `.vscode/settings.json` in your project
+    - **User**: `Cmd+Shift+P` → "Preferences: Open User Settings (JSON)"
+    
+    <Tip>
+      Latest version: <strong id="metals-version" style={{ cursor: "pointer" }} title="Click to copy">2.0.0-M2</strong>
+    </Tip>
+    
+    ```json
+    {
+      "metals.serverVersion": "2.0.0-M2",
+      "metals.serverProperties": ["-Xmx4g"]
+    }
+    ```
+  </Step>
+  
+  <Step title="Reload">
+    Reload VS Code (`Cmd+Shift+P` → "Reload Window"), let indexing complete and start navigating.
+  </Step>
+</Steps>

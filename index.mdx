@@ -61,48 +61,17 @@ bottleneck.
 
 ## Installation
 
-<Steps>
-  <Step title="Install the Extension">
-    Install **Metals** from the VS Code Marketplace or Open VSX:
-    
-    - [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=scalameta.metals)
-    - [Open VSX](https://open-vsx.org/extension/scalameta/metals)
-  </Step>
-  
-  <Step title="Configure Server Version">
-    Add to your VS Code `settings.json`:
-    
-    <Tabs>
-      <Tab title="Latest Release">
-        ```json
-        "metals.serverVersion": "2.0.0-M2",
-        ```
-      </Tab>
-      <Tab title="Snapshot">
-        To find the latest snapshot version, visit the [Release workflow runs](https://github.com/scalameta/metals/actions/workflows/release.yml?query=branch%3Amain-v2), 
-        open the latest successful run, expand the **Publish to Sonatype** step, and look for the version in the logs:
-        
-        ```
-        published metals_2.13 to .../metals_2.13/2.0.0-M2-3-fb622b19-SNAPSHOT/...
-        ```
-        
-        Copy the version (e.g. `2.0.0-M2-3-fb622b19-SNAPSHOT`) and add it to your settings:
-        
-        ```json
-        "metals.serverVersion": "2.0.0-M2-3-fb622b19-SNAPSHOT",
-        "metals.customRepositories": [
-          "central",
-          "https://central.sonatype.com/repository/maven-snapshots"
-        ],
-        ```
-      </Tab>
-    </Tabs>
-  </Step>
-  
-  <Step title="Reload">
-    Reload Cursor or VS Code (`Cmd+Shift+P` → "Reload Window"), let indexing complete and start navigating.
-  </Step>
-</Steps>
+<CardGroup cols={3}>
+  <Card title="Cursor" icon="window" href="/cursor">
+    Install for Cursor
+  </Card>
+  <Card title="VS Code" icon="window" href="/vscode">
+    Install for VS Code
+  </Card>
+  <Card title="Neovim" icon="window" href="/neovim">
+    Install for Neovim
+  </Card>
+</CardGroup>
 
 ---
 

@@ -1,0 +1,70 @@
+---
+title: "Neovim"
+description: "Use Metals v2 with Neovim via nvim-metals"
+---
+
+Metals v2 works with Neovim through [nvim-metals](https://github.com/scalameta/nvim-metals), a Lua plugin that integrates Metals with Neovim's built-in LSP support.
+
+<Note>
+  The [nvim-metals repository](https://github.com/scalameta/nvim-metals) is the primary reference for installation and configuration. This page covers only the Metals v2-specific setup.
+</Note>
+
+## Prerequisites
+
+- Neovim v0.11.x or newer
+- [Coursier](https://get-coursier.io/) installed locally
+
+## Configuration
+
+Follow the [nvim-metals installation guide](https://github.com/scalameta/nvim-metals#getting-started), then add the `serverVersion` setting to use Metals v2:
+
+<Tip>
+  Latest version: <strong id="metals-version" style={{ cursor: "pointer" }} title="Click to copy">2.0.0-M2</strong>
+</Tip>
+
+```lua
+metals_config.settings = {
+  serverVersion = "2.0.0-M2",
+  serverProperties = { "-Xmx4g" },
+}
+```
+
+## Required VM Options
+
+Metals v2 requires JVM options for JDK internals access. If [PR #767](https://github.com/scalameta/nvim-metals/pull/767) has been merged, these are set automatically. Otherwise, add them manually:
+
+```lua
+metals_config.settings = {
+  serverVersion = "2.0.0-M2",
+  serverProperties = {
+    "-Djol.magicFieldOffset=true",
+    "-Djol.tryWithSudo=true",
+    "-Djdk.attach.allowAttachSelf",
+    "--add-opens=java.base/java.nio=ALL-UNNAMED",
+    "--add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED",
+    "--add-exports=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED",
+    "--add-exports=jdk.compiler/com.sun.tools.javac.comp=ALL-UNNAMED",
+    "--add-exports=jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED",
+    "--add-exports=jdk.compiler/com.sun.tools.javac.jvm=ALL-UNNAMED",
+    "--add-exports=jdk.compiler/com.sun.tools.javac.main=ALL-UNNAMED",
+    "--add-exports=jdk.compiler/com.sun.tools.javac.model=ALL-UNNAMED",
+    "--add-exports=jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED",
+    "--add-exports=jdk.compiler/com.sun.tools.javac.processing=ALL-UNNAMED",
+    "--add-exports=jdk.compiler/com.sun.tools.javac.resources=ALL-UNNAMED",
+    "--add-exports=jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED",
+    "--add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED",
+    "--add-opens=java.base/sun.nio.ch=ALL-UNNAMED",
+    "--add-opens=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED",
+    "--add-opens=jdk.compiler/com.sun.tools.javac.comp=ALL-UNNAMED",
+    "--add-opens=jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED",
+    "--add-opens=jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED",
+    "-XX:+DisplayVMOutputToStderr",
+    "-Xlog:disable",
+    "-Xlog:all=warning,gc=warning:stderr",
+  },
+}
+```
+
+<Card title="nvim-metals on GitHub" icon="github" href="https://github.com/scalameta/nvim-metals">
+  Full documentation, examples, and source code
+</Card>
